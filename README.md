@@ -8,5 +8,5 @@ Project Names: BluetoothChatClientGUI and BluetoothChatServerGUI
 3.Desktop Java App with Advanced GUI design (This is the App with the cool User Interface)       
 Project Names: BluetoothChatClient and BluetoothChatServer
 
-4.Android App
+4.Android App             
 Project Name: BluetoothChat.aia
