@@ -24,7 +24,7 @@ public class ServiceFinder{
 		System.out.println("Searching services for selected device...");
 		tools.searchServices(selected-1);
 		List<ServiceRecord> serviceList = tools.getServiceList();
-		System.out.println("Search completed, now select a servive [just input the number]");
+		System.out.println("Search completed, now select a service [just input the number]");
 		
 		Iterator<ServiceRecord> iteradorsv = serviceList.iterator();
 		
