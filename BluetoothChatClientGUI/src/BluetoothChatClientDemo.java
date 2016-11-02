@@ -5,9 +5,12 @@ import javax.swing.*;
 
 public class BluetoothChatClientDemo {
 	public static void main(String[] args) {
+		
 		//Antonio: A4DB30D46505
 		//John: A8A7955DEC78
-		String URL = "btspp://"+"A8A7955DEC78"+":"+2;
+		// String URL = "btspp://"+"A8A7955DEC78"+":"+2;
+		ServiceFinder buscador = new ServiceFinder();
+		String URL = buscador.getServiceURL();
 		BluetoothChatView bluetoothChatView = new BluetoothChatPanel("Client");
 		BluetoothChatClient bluetoothChatClient = new BluetoothChatClient(URL);
 		ActionListener bluetoothChatClientCtr = new BluetoothChatClientCtr(bluetoothChatView, bluetoothChatClient);

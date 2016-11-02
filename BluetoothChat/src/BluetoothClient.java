@@ -4,7 +4,6 @@ import java.io.OutputStream;
 import javax.bluetooth.*;
 import javax.microedition.io.*;
 
-// Hola John
 
 public class BluetoothClient {
 	public static void main(String[] args){
