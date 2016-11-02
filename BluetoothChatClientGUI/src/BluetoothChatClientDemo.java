@@ -11,6 +11,7 @@ public class BluetoothChatClientDemo {
 		// String URL = "btspp://"+"A8A7955DEC78"+":"+2;
 		ServiceFinder buscador = new ServiceFinder();
 		String URL = buscador.getServiceURL();
+		System.out.println(URL);
 		BluetoothChatView bluetoothChatView = new BluetoothChatPanel("Client");
 		BluetoothChatClient bluetoothChatClient = new BluetoothChatClient(URL);
 		ActionListener bluetoothChatClientCtr = new BluetoothChatClientCtr(bluetoothChatView, bluetoothChatClient);
