@@ -11,7 +11,6 @@ public class ServiceFinder{
 	public ServiceFinder() {
 		Inquiry tools = new Inquiry();
 		System.out.println("Welcome to BT Service Finder");
-		System.out.println("Local device information:");
 		tools.showLocalDeviceInformation();
 		System.out.println("First, we are going to look for some near devices, after that you have to choose a device to look services on:");
 		tools.searchDevices();
