@@ -39,6 +39,8 @@ public class ServiceFinder{
 		System.out.println((String) serviceList.get(selected-1).getAttributeValue(0x0100).getValue()+" selected");
 		ServiceURL = serviceList.get(selected-1).getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
 		
+		// En este caso el Scaner no se cierra, ya lo hara MessageSender, cerrarlo aqui provoca que se cierra el System-in y MessageSender
+		// no pueda leer de teclado
 	}
 	
 	
