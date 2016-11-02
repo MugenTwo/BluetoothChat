@@ -16,6 +16,7 @@ public class BluetoothClient {
 			// Nos conectamos al servicio, y obtenemos un objeto para trabajar con este
 			StreamConnection serviceRequestManager = (StreamConnection) Connector.open(URL);
 			
+			System.out.println("Connected to server");
 			// Obtenemos los flujos de entrada y salida de datos
 			OutputStream outputStream = serviceRequestManager.openOutputStream();
 			InputStream inputStream = serviceRequestManager.openInputStream();
