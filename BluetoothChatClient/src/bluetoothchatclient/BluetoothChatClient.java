@@ -7,7 +7,6 @@ import java.io.OutputStream;
 import javax.microedition.io.*;
 
 //La clase BluetoothChatClient ser encargará de crear la conexión con el Servidor Bluetooth
-//
 public class BluetoothChatClient {
 	private StreamConnection serviceRequestManager;
 	private OutputStream outputStream;
