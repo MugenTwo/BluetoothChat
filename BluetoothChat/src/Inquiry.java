@@ -5,6 +5,8 @@ import javax.bluetooth.*;
 
 // Versión modificada del inquiry actual para este propósito
 
+// Esta clase proporciona funcionalidad util empleada por la clase ServiceFinder para el descubrimiento de servicios
+
 public class Inquiry implements DiscoveryListener {
 	private static final int SERVICE_NAME_ATTRID = 0x0100;
 	private List<ServiceRecord> serviceList; //This list will contain all the services to be discovered
@@ -25,6 +27,7 @@ public class Inquiry implements DiscoveryListener {
 		}
 	}
 	
+	// Este metodo se ejecuta cada vez que se descubre un dispositivo
 	public void deviceDiscovered(RemoteDevice remoteDevice, DeviceClass deviceClass) {
 		String name = "";
 		try {
@@ -35,8 +38,12 @@ public class Inquiry implements DiscoveryListener {
 		System.out.println(this.counter+". "+ name);
 		remoteDeviceList.add(remoteDevice);
 		this.counter++;
+		
+		// Basicamente se añade a una lista y se presenta en pantalla su friendly name acompañado de un numero que le va a permitir al usuario
+		// seleccionar el dispositivo sobre el que quiere hacer la busqueda de servicios mas adelante
 	}
 
+	// Ejecutado al finalizar la busqueda de dispositivos
 	public void inquiryCompleted(int discType) {
 		synchronized (this) {
 			try {
@@ -48,6 +55,7 @@ public class Inquiry implements DiscoveryListener {
 		}
 	}
 
+	// Ejecutado al finalizar la búsqueda de servicios
 	public void serviceSearchCompleted(int tid, int rid) {
 		synchronized (this) {
 			try {
@@ -58,6 +66,7 @@ public class Inquiry implements DiscoveryListener {
 		System.out.println("Service Search Completed");
 	}
 
+	// Se ejecuta cuando se acaba la busqueda de servicios y se obtiene un array de ServiceRecord
 	public void servicesDiscovered(int tid, ServiceRecord[] serviceRecord) {
 		if (serviceRecord.length == 0) {
 			System.out.println("Device has no service");
@@ -79,10 +88,11 @@ public class Inquiry implements DiscoveryListener {
 		System.out.println("Bluetooth Address: " + localDevice.getBluetoothAddress());
 	}
 	
+	// Busqeuda de dispositivos
 	public void searchDevices(){
 		try {
 			System.out.println("Searching for devices...");
-			discoveryAgent.startInquiry(DiscoveryAgent.GIAC,this);
+			discoveryAgent.startInquiry(DiscoveryAgent.GIAC,this); // Busqueda con codigo de acceso general: Visible para todos
 			synchronized (this) {
 				try {
 					this.wait();
@@ -94,6 +104,9 @@ public class Inquiry implements DiscoveryListener {
 		}
 	}
 	
+	// Permite llevar a cabo la busqueda de servicios cuando se le da un numero de dispositivo
+	// que se encuentra en la lista de dispositivos descubiertos
+	// Por tanto un requisito antes de ejecutar esta funcion es haber ejecutado searchDevices
 	public List<ServiceRecord> searchServices(int deviceNumber){
 		try{
 			
@@ -103,6 +116,7 @@ public class Inquiry implements DiscoveryListener {
 			attribset[0] = SERVICE_NAME_ATTRID;
 			
 			
+					// El this se debe a que esta clase es en si el listener
 					discoveryAgent.searchServices(attribset, uuids, remoteDeviceList.get(deviceNumber), this);
 				synchronized (this) {
 					try {
@@ -115,11 +129,11 @@ public class Inquiry implements DiscoveryListener {
 			e.printStackTrace();
 		}
 		
-		return serviceList;
+		return serviceList; // Se devuelve una lista de ServiceRecord
 	}
 	
 	
-	
+	// Getter para serviceList
 	public List<ServiceRecord> getServiceList() {
 		return serviceList;
 	}

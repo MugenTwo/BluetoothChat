@@ -13,7 +13,7 @@ public class BluetoothClient {
 			String URL = buscador.getServiceURL();
 			// String URL = "btspp://"+"A4DB30D46505"+":"+1; <Debugging>
 			
-			// Nos conectamos al servicio, y obtenemos un objeto para trabajar con este
+			// Nos conectamos al servicio, y obtenemos un objeto StreamConnection para trabajar con este
 			StreamConnection serviceRequestManager = (StreamConnection) Connector.open(URL);
 			
 			System.out.println("Connected to server");

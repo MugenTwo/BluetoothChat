@@ -43,7 +43,7 @@ public class BluetoothMessageReciever extends Thread{
 			}
 			
 			// En este punto el bucle finaliza ya que el otro lado ha mandado un END\n
-			// Tras todas las operaciones que se hacen, el programa no lega a finalizar ya que la hebra BluetoothMessageSender se encuentra bloqueada al tener
+			// Tras todas las operaciones que se hacen, el programa no llega a finalizar ya que la hebra BluetoothMessageSender se encuentra bloqueada al tener
 			// un Scanner que espera entrada de teclado, es por eso que se pide que se presione la tecla enter para que así dicha hebra salga de su bloqueo y al intentar
 			// enviar los datos escritos (un salto de linea, \n) no pueda y su ejecución finalice. El que su ejecución finalice se debe a que se produce una excepción al querer enviar
 			// los datos por el flujo de salida cuando dicho flujo ha sido cerrado por esta hebra tal y como se hace en la línea 59 del código de esta clase al hacer
