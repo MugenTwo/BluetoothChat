@@ -5,10 +5,17 @@ import javax.bluetooth.UUID;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/*
+ * Clase empleada para arrancar el chat con la GUI
+ * Antes de que aparezca la GUI se ejecuta un servidor para exponer el servicio
+ */
+
 public class BluetoothChatServerDemo {
 	public static void main(String[] args) {
+		// URL del servicio
 		String URL = "btspp://localhost:" + new UUID(0x1101).toString() + ";name=BluetoothChat"; 
 		BluetoothChatView bluetoothChatView = new BluetoothChatPanel("Server");
+		// Creacion del servidor pasandole la URL que se ha compuesto
 		BluetoothChatServer bluetoothChatServer = new BluetoothChatServer(URL);
 		ActionListener bluetoothChatServerCtr = new BluetoothChatServerCtr(bluetoothChatView, bluetoothChatServer);
 		bluetoothChatView.controller(bluetoothChatServerCtr);

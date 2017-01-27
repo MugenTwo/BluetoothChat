@@ -6,6 +6,9 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
 import javax.microedition.io.StreamConnectionNotifier;
 
+// Esta clase encapsula el servidor y permite obtener los flujos y guardarlos para su posterior acceso
+// mediante los setters
+
 public class BluetoothChatServer {
 	private StreamConnection serviceRequestManager;
 	private OutputStream outputStream;

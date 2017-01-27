@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import javax.microedition.io.StreamConnection;
 import javax.microedition.io.StreamConnectionNotifier;
 
+// Documentado en el mismo archivo dentro del proyecto "BluetoothChatClientGUI"
 public class BluetoothServerMessageReciever extends Thread{
 	private InputStream inputStream;
 	private OutputStream outputStream;

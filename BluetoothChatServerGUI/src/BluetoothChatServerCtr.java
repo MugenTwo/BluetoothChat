@@ -7,6 +7,8 @@ import java.io.OutputStream;
 import javax.microedition.io.StreamConnection;
 import javax.microedition.io.StreamConnectionNotifier;
 
+// Controlador de la GUI
+// En esencia, empleando los flujos adecuados, manda el mensaje escrito al pulsar "SEND"
 public class BluetoothChatServerCtr implements ActionListener{
 	private BluetoothChatView bluetoothChatView;
 	private InputStream inputStream;
