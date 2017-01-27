@@ -30,23 +30,41 @@ public class bluetoothChatPanel extends javax.swing.JFrame {
     private StreamConnection serviceRequestManager;
     private StreamConnectionNotifier service;
     public bluetoothChatPanel() {
+        //1. Creamos la URL
         String URL = "btspp://localhost:" + new UUID(0x1101).toString() + ";name=BluetoothChat"; 
+        //2. Inicializamos los componentes del interfaz gráfico
+        //initComponentes() es un método autogenerado por el generador de interfaz gráfico de Netbeans
         initComponents();
+        //3. Inicializamos el Servidor Bluetooth
         btServer = new BluetoothChatServer(URL);
+        //4. Imprimimos un mensaje por pantalla para indicar que el servidor se ha conectado con el cliente bluetooth
         this.printStatus("Server has connected to Client\n");
+        //5. Inicializamos los flujos de datos
+        //outputStream es necesario para enviar un mensaje desde el interfaz gráfico
+        //inputStream es necesario para cerrar el flujo de entrada de datos cuando el propio cliente envía un END\n
 	this.inputStream = btServer.getInputStream();
 	this.outputStream = btServer.getOutputStream();
+        //6. Inicializamos el serviceRequestManager
+        //serviceRequestManager es necesario para 
 	this.serviceRequestManager = btServer.getStreamConnection();
 	this.service = btServer.getService();
+        //7. Ponemos el icono al interfaz gráfico
         setIcon();
+        //8. Llamamos BluetoothClientMessageReciever para recibir mensajes
 	BluetoothServerMessageReciever bluetoothServerMessageReciever = new BluetoothServerMessageReciever(this.inputStream,this.outputStream,this,this.serviceRequestManager,this.service);
 	bluetoothServerMessageReciever.start();
     }
+    
+    //El método sendMessage() es el método que se ejecutará cuando se pulsa el botón de Send
     public void sendMessage(){
         try{
+            //1. Creamos el string que se imprimirá en el GUI
             String message = this.getMessage();
+            //2. Enviamos el texto que está escrito en el componente messageField
             outputStream.write((message+"\n").getBytes());
+            //3. Escribimos el text que está en el messageField en el componente chatArea
             this.printMessageInChat("Server", message+"\n");
+            //4. Borramos el contenido del messageField
             this.clearMessageField();
             if("END".equals(message)){
 		//Cuando el servidor envia un END cerramos InputStream y OutStream
@@ -56,9 +74,12 @@ public class bluetoothChatPanel extends javax.swing.JFrame {
 		service.close();
             }
 	} catch(IOException e1){
+            //Esta excepción salta cuando se ha cerrado la conexion y el servidor desea enviar un mensaje
             this.printMessageInChat("ERROR", "Closed connection\n");
 	}        
     }
+    
+    //El método initComponent() ha sido generado por el generador de interfaz gráfico de netbeans
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -134,8 +155,12 @@ public class bluetoothChatPanel extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //El método closeMouseRealease es el método que escucha el evento sobre el botón de cerrar
+    //Este método se ha tenido que implimentar ya que no estamos usando la biblioteca convencional de java para crear el panel
     private void closeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseReleased
         try {
+            //1. Cuando el usuario pulsa el botón de cerrar del interfaz gráfica, cerramos la conexión
+            // y también cerramos todos los flujos de datos
             outputStream.write(("END\n").getBytes());
             inputStream.close();
             outputStream.close();
@@ -145,15 +170,21 @@ public class bluetoothChatPanel extends javax.swing.JFrame {
         }
         System.exit(0);
     }//GEN-LAST:event_closeMouseReleased
-
+    
+    //El método minimizeMouseRealeased es el método que escucha el evento sobre el botón de minimizar
+    //Este método se ha tenido que implimentar ya que no estamos usando la biblioteca convencional de java para crear el panel
     private void minimizeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseReleased
         this.setState(Frame.ICONIFIED);
     }//GEN-LAST:event_minimizeMouseReleased
 
+    //Este método es el que se encarga de escuchar el evento sobre el botón de enviar
+    //Como podemos observar, este método es el que llama al método sendMessage()
     private void sendButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sendButtonMouseReleased
         sendMessage();
     }//GEN-LAST:event_sendButtonMouseReleased
 
+    //El método messageFieldKeyReleased es el método que escucha el evento sobre la tecla intro
+    //De tal manera, que si pulsamos la tecla intro, se envía el contenido del messageField() llamando al método sendMessage
     private void messageFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_messageFieldKeyReleased
         //Si se pulsa enter que también se haga el envio
         int key = evt.getKeyCode();
@@ -161,26 +192,39 @@ public class bluetoothChatPanel extends javax.swing.JFrame {
                 sendMessage();
         }
     }//GEN-LAST:event_messageFieldKeyReleased
+    
+    //El método printStatus() lo usamos para mostrar mensajes de estado en el GUI
     public void printStatus(String status){
 	chatArea.append(status);
     }
+    
+    //Este método sirve para obtener el texto que hay en el messageField
     public String getMessage(){
 	return this.messageField.getText();
     }
+    
+    //Este método sirve para escribir sobre el chatArea (y asi poder mostrar la conversación en ella)
     public void printMessageInChat(String user,String message){
 	if(!"".equals(message)){
             chatArea.append("\n"+user+": "+message);
 	}
     }
+    
+    //Este método sirve para limpiar el messageField
     public void clearMessageField(){
 	messageField.setText("");
     }
+    
+    //Este método sirve para poner el icono a la aplicación
     private void setIcon(){
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/bluetoothchatserverimages/server.png")));
     }
+    
     /**
      * @param args the command line arguments
      */
+    //El método principal crea la instancia de bluetoothChatPanel y lo pone visible
+    //Este método también es auto generado por el generador de interfaz gráfico de Netbeans
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -212,7 +256,7 @@ public class bluetoothChatPanel extends javax.swing.JFrame {
             }
         });
     }
-
+    //A continuación, podemos encontrar la declaración de las variables que representan los 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JTextArea chatArea;
