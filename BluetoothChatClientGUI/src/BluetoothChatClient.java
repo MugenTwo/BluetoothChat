@@ -3,6 +3,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.microedition.io.*;
+
+// Permite conectarse al servicio cuya URL se le proporciona y acceder a los distintos streams con
+// los getters y setters disponibles
 public class BluetoothChatClient {
 	private StreamConnection serviceRequestManager;
 	private OutputStream outputStream;

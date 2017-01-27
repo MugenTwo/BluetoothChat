@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 import javax.bluetooth.ServiceRecord;
 
+//Esta clase ya ha sido documentada previamente en el proyecto "BluetoothChat"
+
 public class ServiceFinder{
 	
 	private String ServiceURL;
-	
 	public ServiceFinder() {
 		Inquiry tools = new Inquiry();
 		System.out.println("Welcome to BT Service Finder");

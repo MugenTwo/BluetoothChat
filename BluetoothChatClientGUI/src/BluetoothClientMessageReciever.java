@@ -4,11 +4,14 @@ import java.io.OutputStream;
 
 import javax.microedition.io.StreamConnection;
 
+// Hilo para la recepcion de mensajes
 public class BluetoothClientMessageReciever extends Thread{
 	private InputStream inputStream;
 	private OutputStream outputStream;
 	private BluetoothChatView bluetoothChatView;
 	private StreamConnection serviceRequestManager;
+	
+	// Ha de tener constancia de los dos streams, de StreamConnection y de la vista
 	public BluetoothClientMessageReciever(InputStream inputStream,OutputStream outputStream,BluetoothChatView bluetoothChatView,StreamConnection streamConnection){
 		this.inputStream = inputStream;
 		this.outputStream = outputStream;
@@ -17,7 +20,7 @@ public class BluetoothClientMessageReciever extends Thread{
 	}
 	public void run(){
 		try{
-			String message = "";
+			String message = ""; // Donde se almacena el mensaje a recibir
 			byte[] buffer = new byte[50];
 			while(!"END\n".equals(message)){
 				message = "";

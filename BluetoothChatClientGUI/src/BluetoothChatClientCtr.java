@@ -4,6 +4,9 @@ import java.io.*;
 
 import javax.microedition.io.StreamConnection;
 
+// Controlador de la vista, el cual tiene tambien constancia de los distintos streams gracias al
+// objeto que se le pasa BluetoothChatClient. Requiere de esta información para, entre otras cosas
+// poder mandar el mensaje que se escribe en la GUI al pulsa el boton enviar en esta.
 public class BluetoothChatClientCtr implements ActionListener{
 	private BluetoothChatView bluetoothChatView;
 	private InputStream inputStream;
@@ -23,8 +26,8 @@ public class BluetoothChatClientCtr implements ActionListener{
 		switch(command){
 		case "SEND":
 			try {
-				String message = bluetoothChatView.getMessage();
-				outputStream.write((message+"\n").getBytes());
+				String message = bluetoothChatView.getMessage(); // Obtencion del mensaje de la GUI
+				outputStream.write((message+"\n").getBytes()); // Se manda el mensaje
 				bluetoothChatView.printMessageInChat("Client", message+"\n");
 				bluetoothChatView.clearMessageField();
 				if("END".equals(message)){

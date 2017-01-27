@@ -3,6 +3,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+// Implementacion de la vista
 public class BluetoothChatPanel extends JPanel implements BluetoothChatView{
 
 	/**

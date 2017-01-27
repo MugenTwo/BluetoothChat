@@ -5,6 +5,8 @@ import javax.bluetooth.*;
 
 // Versión modificada del inquiry actual para este propósito
 
+//Esta clase ya ha sido documentada previamente en el proyecto "BluetoothChat"
+
 public class Inquiry implements DiscoveryListener {
 	private static final int SERVICE_NAME_ATTRID = 0x0100;
 	private List<ServiceRecord> serviceList; //This list will contain all the services to be discovered
